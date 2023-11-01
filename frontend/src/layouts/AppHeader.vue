@@ -21,6 +21,10 @@ const changeTheme = (theme: 'light' | 'dark') => {
   emit('update-theme', isDark.value);
   document.documentElement.setAttribute('data-theme', theme);
 };
+const logOut = () => {
+  localStorage.removeItem('user');
+  window.location.href ='/login'
+};
 
 // Change language
 const { t, locale } = useI18n();
@@ -31,11 +35,23 @@ const changeLanguage = (language: Locale) => {
   locale.value = language;
 };
 
+var data = false;
 onMounted(() => {
   // Locale auto detect
+  var user =null;
+  if(JSON.parse(localStorage.getItem('user'))){
+       user = JSON.parse(localStorage.getItem('user'))
+  }
+  const initialState = user
+  ? { status: { loggedIn: true }, user }
+  : { status: { loggedIn: false }, user: null };
+
+  data = initialState.status.loggedIn;
+    console.log(data);
   const userLocale = navigator.language;
   changeLanguage(userLocale as Locale);
 });
+ 
 </script>
 
 <template>
@@ -44,7 +60,7 @@ onMounted(() => {
   >
     <nav class="navbar w-full">
       <div class="flex flex-1 gap-2">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2" >
           <a
             href="/"
             aria-current="page"
@@ -224,7 +240,7 @@ onMounted(() => {
             tabindex="0"
             class="dropdown-content bg-base-200 text-base-content rounded-box top-px mt-16 w-56 overflow-y-auto shadow"
           >
-            <ul class="menu gap-1" tabindex="0">
+            <ul class="menu gap-1" tabindex="0" >
               <li @click="changeLanguage(Locale.ZH_CN)">
                 <button :class="useLanguage === Locale.ZH_CN ? 'btn-active' : ''">
                   <img
@@ -254,7 +270,11 @@ onMounted(() => {
             </ul>
           </div>
         </div>
-        <span
+        <div  > 
+        <button  v-if="data" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"  @click='logOut'>
+  Log Out
+</button> </div>
+        <span  
           class="tooltip tooltip-bottom before:text-xs before:content-[attr(data-tip)]"
           data-tip="QQ"
         >
@@ -291,3 +311,6 @@ onMounted(() => {
     </nav>
   </div>
 </template>
+
+
+
