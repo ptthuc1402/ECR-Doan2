@@ -62,13 +62,20 @@ export default {
     methods: {
             
         handleSubmit(e) {
-           console.log('success')
-            console.log(this.user);
-         axios.post('http://localhost:8080/auth/login', {
+            // console.log('success')
+            // console.log(this.user);
+            axios.post('http://localhost:8080/auth/login', {
                     email: this.user.email,
                     password: this.user.password,
                     }).then(response => [
+                    this.navigate = response.data.status,
                     ]);  
+                event.preventDefault()
+                setTimeout(() => {
+                    if(this.navigate) { 
+                        window.location.href = '/'
+                    }
+                },1000);
 
                 
                     

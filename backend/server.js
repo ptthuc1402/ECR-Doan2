@@ -44,7 +44,7 @@ app.use(log);
 app.use(bodyParserJSON);
 app.use(bodyParserURLEncoded);
 
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 
 app.listen(PORT, (req, res) => {
   console.log(`Server is running on ${PORT} port.`);
