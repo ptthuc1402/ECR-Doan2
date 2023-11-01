@@ -1,4 +1,5 @@
 const User = require("../models/user.model.js");
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 // Create and Save a new Tutorial
 const validateSignUp = (email, password, confirmPassword) => {
@@ -64,7 +65,8 @@ exports.signin = async function (req, res) {
         password: ''
     };
     const validate = validateSignIn(email, password);
-    console.log(validate);
+
+    var status =false;
     try {
        
       
@@ -87,7 +89,10 @@ exports.signin = async function (req, res) {
 
               
                 console.log('ok')
-                res.status(200).json({  });
+                const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, '123jqwjeklqw', { expiresIn: "3h" });
+                console.log(token);
+                var status =true;
+                res.status(200).json({ status,token  });
             }
     } catch (err) {
         res.status(500).json({ message: {noti: "Something went wrong!"} });
