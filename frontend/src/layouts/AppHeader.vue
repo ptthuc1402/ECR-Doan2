@@ -35,24 +35,40 @@ const changeLanguage = (language: Locale) => {
   locale.value = language;
 };
 
-var data = false;
+
+
+var data= false;
 onMounted(() => {
   // Locale auto detect
-  var user =null;
-  if(JSON.parse(localStorage.getItem('user'))){
-       user = JSON.parse(localStorage.getItem('user'))
-  }
+ var user = JSON.parse(localStorage.getItem('user'));
   const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
 
-  data = initialState.status.loggedIn;
+   data = initialState.status.loggedIn;
     console.log(data);
   const userLocale = navigator.language;
-  changeLanguage(userLocale as Locale);
+  
+
 });
  
 </script>
+<script lang="ts"> 
+onMounted(() => {
+  // Locale auto detect
+ var user = JSON.parse(localStorage.getItem('user'));
+  const initialState = user
+  ? { status: { loggedIn: true }, user }
+  : { status: { loggedIn: false }, user: null };
+
+   data = initialState.status.loggedIn;
+    console.log(data);
+  const userLocale = navigator.language;
+  
+
+});
+</script>
+
 
 <template>
   <div
@@ -210,7 +226,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <div title="Change Language" class="dropdown dropdown-end">
+        <!-- <div title="Change Language" class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost normal-case" data-svelte-h="svelte-16sc62l">
             <svg
               class="h-5 w-5 fill-current"
@@ -269,11 +285,53 @@ onMounted(() => {
               </li>
             </ul>
           </div>
+        </div> -->
+ 
+
+
+
+
+         <div title="Change Language" class="dropdown dropdown-end"  v-if="data">
+          <label tabindex="0" class="btn btn-ghost normal-case" data-svelte-h="svelte-16sc62l">
+            dropdown
+            <svg
+              width="12px"
+              height="12px"
+              class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 2048 2048"
+            >
+              <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+            </svg>
+          </label>
+          <div
+            tabindex="0"
+            class="dropdown-content bg-base-200 text-base-content rounded-box top-px mt-16 w-56 overflow-y-auto shadow"
+          >
+            <ul class="menu gap-1 text-lg" tabindex="0" >
+              <li>
+            
+                <button >
+                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                  <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+               </svg>
+                  Profile
+                </button>
+              </li>
+              <li @click="logOut">
+                <button >
+                  <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
+               </svg>
+                  Log Out
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div  > 
-        <button  v-if="data" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"  @click='logOut'>
-  Log Out
-</button> </div>
+ 
+
+ 
         <span  
           class="tooltip tooltip-bottom before:text-xs before:content-[attr(data-tip)]"
           data-tip="QQ"

@@ -78,7 +78,7 @@ export default {
                 setTimeout(() => {
                    if(this.navigate){
                                 localStorage.setItem('user', JSON.stringify(this.token ));
-                                window.location.href = '/'
+                                window.location.href = '/home'
                         }
                  },1000);
                          
