@@ -32,9 +32,9 @@ exports.register = async function (req, res) {
     try {
         
             if(!validate.status) {
-                validate.mark == 'both' ? message = {email: NOTIFICATION.EMAIL_FORMAT, password: NOTIFICATION.PASSWORD_LENGTH} :
-                validate.mark == 'password' ? message.password = NOTIFICATION.PASSWORD_LENGTH :
-                validate.mark == 'email' ? message.email = NOTIFICATION.EMAIL_FORMAT : message.confirmPassword = NOTIFICATION.PASSWORD_CONFIRM;
+                validate.mark == 'both' ? message = {email: "Failed", password:"Failed"} :
+                validate.mark == 'password' ? message.password ="Failed":
+                validate.mark == 'email' ? message.email = "Failed" : message.confirmPassword = "Failed";
                 return res.status(400).json({ status});
             }else{
                 const oldUser = await User.findOne({ email }).then((result) => console.log(result));
@@ -44,11 +44,12 @@ exports.register = async function (req, res) {
                 const hashedPassword = await bcrypt.hash(password, 12);
 
                 const user = await User.create({ email, password: hashedPassword, name: name });
-                console.log(user);
+                const token = jwt.sign({ email: user.email, id: user._id },  '123jqwjeklqw', { expiresIn: "3h" });
+                console.log(token);
             
                 status = true;
                 console.log(status);
-                res.status(201).json({ status });
+                res.status(201).json({ status,token });
             }
      
          } catch (error) {
