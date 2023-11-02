@@ -13,8 +13,8 @@ class TesseractEngine extends Engine {
       logger: (m) => console.log(m)
     });
     /** You can load more languages in advance, but use only part of them in Worker.initialize() */
-    await this.worker.loadLanguage('eng+chi_sim');
-    await this.worker.initialize('eng+chi_sim');
+    await this.worker.loadLanguage('vie+chi_sim');
+    await this.worker.initialize('vie+chi_sim');
   }
 
   async recognize(imageUrl: string): Promise<string> {

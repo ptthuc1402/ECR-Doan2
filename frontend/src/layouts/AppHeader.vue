@@ -35,9 +35,14 @@ const changeLanguage = (language: Locale) => {
   locale.value = language;
 };
 
+ var user = JSON.parse(localStorage.getItem('user'));
+  const initialState = user
+  ? { status: { loggedIn: true }, user }
+  : { status: { loggedIn: false }, user: null };
+
+   var data = initialState.status.loggedIn;
 
 
-var data= false;
 onMounted(() => {
   // Locale auto detect
  var user = JSON.parse(localStorage.getItem('user'));
@@ -45,7 +50,7 @@ onMounted(() => {
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
 
-   data = initialState.status.loggedIn;
+   var data = initialState.status.loggedIn;
     console.log(data);
   const userLocale = navigator.language;
   
@@ -53,21 +58,7 @@ onMounted(() => {
 });
  
 </script>
-<script lang="ts"> 
-onMounted(() => {
-  // Locale auto detect
- var user = JSON.parse(localStorage.getItem('user'));
-  const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
 
-   data = initialState.status.loggedIn;
-    console.log(data);
-  const userLocale = navigator.language;
-  
-
-});
-</script>
 
 
 <template>
@@ -293,7 +284,7 @@ onMounted(() => {
 
          <div title="Change Language" class="dropdown dropdown-end"  v-if="data">
           <label tabindex="0" class="btn btn-ghost normal-case" data-svelte-h="svelte-16sc62l">
-            dropdown
+            Menu
             <svg
               width="12px"
               height="12px"
