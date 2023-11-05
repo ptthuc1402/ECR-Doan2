@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+// create table users
 const userSchema = new Schema({
     name: {
         type: String,

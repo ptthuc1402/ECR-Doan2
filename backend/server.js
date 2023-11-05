@@ -31,21 +31,21 @@ app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is d
 
 // simple route
 
-// router.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
+router.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 db();
 require("./routes/auth.routes")(app);
-// set port, listen for requests
 app.use(log);
 app.use(bodyParserJSON);
 app.use(bodyParserURLEncoded);
 
 const PORT = process.env.PORT || 8080;
 
+// set port, listen for requests
 app.listen(PORT, (req, res) => {
   console.log(`Server is running on ${PORT} port.`);
 })

@@ -1,30 +1,20 @@
 <script setup lang="ts">
-import { Locale } from '@/enums';
-import { useI18n } from 'vue-i18n';
-import SideBar from "../layouts/Sidebar.vue"
+// import { Locale } from '@/enums';
+// import { useI18n } from 'vue-i18n';
+import SideBar from "../layouts/SideBar.vue"
 
-const { t, locale } = useI18n();
-
-const openGuide = () => {
-  if (locale.value === Locale.ZH_CN) {
-    window.open('https://github.com/plantree/ocr-pwa/blob/main/docs/zh-CN/guide.md');
-  } else {
-    window.open('https://github.com/plantree/ocr-pwa/blob/main/docs/en-US/guide.md');
-  }
-};
+// const { t, locale } = useI18n();
 
 
 
 </script>
-
 <script lang="ts">
+
 export default {
 components:  {SideBar}
 }
 
 </script> 
-
-
 
 <template>
 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
