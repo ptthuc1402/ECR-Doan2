@@ -13,11 +13,11 @@
               <form class="space-y-4 md:space-y-6" action="#">
                   <div>
                       <label for="email"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input type="email" name="email" id="email" v-model="user.email"   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                      <input type="email" name="email" id="email" v-model="user_send.email"   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
                   </div>
                   <div>
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password"  v-model="user.password"   name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                      <input type="password"  v-model="user_send.password"   name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
                   </div>
                   <div class="flex items-center justify-between">
                       <div class="flex items-start">
@@ -25,10 +25,10 @@
                             <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
                           </div>
                           <div class="ml-3 text-sm">
-                            <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
+                            <label for="remember" class="text-gray-500 dark:text-gray-300">{{user}}</label>
                           </div>
                       </div>
-                      <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+                      <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500" @click="logOut">Forgot password?</a>
                   </div>
                    <button class="btn btn-primary "  @click="handleSubmit" >Login</button>
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
@@ -47,34 +47,46 @@ export default {
     
     data () {
         return {
-            user: {
+            user_send: {
                 email: '',
                 password: ''
                
             },
-            navigate: false
+            navigate: false,
+            token: ""
         }
     },
     mounted(){
     //show student code
-  
+     
     },
     methods: {
             
         handleSubmit(e) {
-           console.log('success')
-            console.log(this.user);
-         axios.post('http://localhost:8080/auth/login', {
-                    email: this.user.email,
-                    password: this.user.password,
-                    }).then(response => [
-                    ]);  
 
-                
-                    
-                     
+         axios.post('http://localhost:8080/auth/login', {
+                    email: this.user_send.email,
+                    password: this.user_send.password,
+                    }).then(response => [
+                          
+                        this.token = response.data.token,
+                          this.navigate = response.data.status
+                             
+                    ]);  
+                    console.log(this.navigate)
+                     event.preventDefault()       
+                setTimeout(() => {
+                   if(this.navigate){
+                                localStorage.setItem('user', JSON.stringify(this.token ));
+                                window.location.href = '/home'
+                        }
+                 },1000);
+                         
                          
         },
+        logOut() {
+            localStorage.removeItem('user');
+        }
 
     }
 };

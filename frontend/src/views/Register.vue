@@ -59,7 +59,8 @@ export default {
                 password: '',
                 confirmPassword: ""
             },
-            navigate: false
+            navigate: false,
+            token : ""
         }
     },
     mounted(){
@@ -86,11 +87,13 @@ export default {
                     confirmPassword: this.user.confirmPassword,
                     }).then(response => [
                     this.navigate = response.data.status,
+                    this.token = response.data.token,
                     ] ) 
                     event.preventDefault()       
                 setTimeout(() => {
                     if(this.navigate) { 
-                        window.location.href = '/'
+                        localStorage.setItem('user', JSON.stringify(this.token ));
+                        window.location.href = '/home'
                     }
                 },1000);
         },

@@ -240,6 +240,11 @@ onMounted(async () => {
           {{ t('ocr.operations.prettify') }}
         </button>
         <button class="btn normal-case" @click="resetText">{{ t('ocr.operations.raw') }}</button>
+        <button class="btn normal-case" > <router-link to="/home">
+        <p class="text-center btn normal-case">
+         Return Home
+        </p>
+      </router-link></button>
       </div>
     </div>
   </div>

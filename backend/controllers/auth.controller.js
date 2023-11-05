@@ -1,4 +1,5 @@
 const User = require("../models/user.model.js");
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 // Create and Save a new Tutorial
 const validateSignUp = (email, password, confirmPassword) => {
@@ -31,9 +32,9 @@ exports.register = async function (req, res) {
     try {
         
             if(!validate.status) {
-                validate.mark == 'both' ? message = {email: NOTIFICATION.EMAIL_FORMAT, password: NOTIFICATION.PASSWORD_LENGTH} :
-                validate.mark == 'password' ? message.password = NOTIFICATION.PASSWORD_LENGTH :
-                validate.mark == 'email' ? message.email = NOTIFICATION.EMAIL_FORMAT : message.confirmPassword = NOTIFICATION.PASSWORD_CONFIRM;
+                validate.mark == 'both' ? message = {email: "Failed", password:"Failed"} :
+                validate.mark == 'password' ? message.password ="Failed":
+                validate.mark == 'email' ? message.email = "Failed" : message.confirmPassword = "Failed";
                 return res.status(400).json({ status});
             }else{
                 const oldUser = await User.findOne({ email }).then((result) => console.log(result));
@@ -43,11 +44,12 @@ exports.register = async function (req, res) {
                 const hashedPassword = await bcrypt.hash(password, 12);
 
                 const user = await User.create({ email, password: hashedPassword, name: name });
-                console.log(user);
+                const token = jwt.sign({ email: user.email, id: user._id },  '123jqwjeklqw', { expiresIn: "3h" });
+                console.log(token);
             
                 status = true;
                 console.log(status);
-                res.status(201).json({ status });
+                res.status(201).json({ status,token });
             }
      
          } catch (error) {
@@ -64,7 +66,8 @@ exports.signin = async function (req, res) {
         password: ''
     };
     const validate = validateSignIn(email, password);
-    console.log(validate);
+
+    var status =false;
     try {
        
       
@@ -87,7 +90,10 @@ exports.signin = async function (req, res) {
 
               
                 console.log('ok')
-                res.status(200).json({  });
+                const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, '123jqwjeklqw', { expiresIn: "3h" });
+                console.log(token);
+                var status =true;
+                res.status(200).json({ status,token  });
             }
     } catch (err) {
         res.status(500).json({ message: {noti: "Something went wrong!"} });
