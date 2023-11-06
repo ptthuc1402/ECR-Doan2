@@ -41,6 +41,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Ocr.vue')
   },
   {
+    path: '/datepicker',
+    component: () => import('@/views/DatePicker.vue')
+  },
+  {
     // Not found
     path: '/:pathMatch(.*)*',
     redirect: '/login'
