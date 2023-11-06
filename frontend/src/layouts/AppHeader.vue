@@ -35,12 +35,12 @@ const logOut = () => {
 //   locale.value = language;
 // };
 
- var user = JSON.parse(localStorage.getItem('user')||'');
+ var user = JSON.parse(localStorage.getItem('user')?? "false");
   const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
    var data = initialState.status.loggedIn;
-
+console.log(user);
 
 onMounted(() => {
 

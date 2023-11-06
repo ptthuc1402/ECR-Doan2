@@ -39,6 +39,7 @@ router.use(function(req, res, next) {
 
 db();
 require("./routes/auth.routes")(app);
+require("./routes/ocr.routes")(app);
 app.use(log);
 app.use(bodyParserJSON);
 app.use(bodyParserURLEncoded);

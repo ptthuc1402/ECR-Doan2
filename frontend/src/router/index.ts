@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Home.vue'),
     // middleware
     beforeEnter: (to, from, next) => {
-      if (JSON.parse(localStorage.getItem('user') || '' ) ===null) {
+      if (JSON.parse(localStorage.getItem('user')??'true')  === null) {
         return next({ path: '/login' });
       }
       next();
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Login.vue'),
     // middleware
     beforeEnter: (to, from, next) => {
-      if (JSON.parse(localStorage.getItem('user')||'') !==null) {
+      if (JSON.parse(localStorage.getItem('user') ?? 'false')) {
         return next({ path: '/home' });
       }
       next();
@@ -30,13 +30,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Register.vue'),
     // middelware
     beforeEnter: (to, from, next) => {
-      if (JSON.parse(localStorage.getItem('user')|| '') !==null) {
+      if (JSON.parse(localStorage.getItem('user')??'false')) {
         return next({ path: '/home' });
       }
       next();
     }
-    
-    
   },
   {
     path: '/ocr',
