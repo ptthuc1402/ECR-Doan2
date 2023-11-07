@@ -29,13 +29,14 @@ exports.store = async function (req, res) {
 
     const data =request.data.text;
     //data after processing
-    var name = data.slice(data.indexOf(name_tit) + name_tit.length +1, data.indexOf(age_tit));
+    var name = data.slice(data.indexOf(name_tit) + name_tit.length +1, data.indexOf(age_tit)).trim();
     var age =  data.slice(data.indexOf(age_tit) + age_tit.length +1, data.indexOf(gender_tit));
     var gender =  data.slice(data.indexOf(gender_tit) + gender_tit.length +1, data.indexOf(job_tit));
     var address =  data.slice(data.indexOf(add_tit) + add_tit.length +1, data.indexOf(day_to_host));
     var job =  data.slice(data.indexOf(job_tit) + job_tit.length +1, data.indexOf(nation_tit));
     var reason_to_hos =  data.slice(data.indexOf(reason_to_hos_tit) + reason_to_hos_tit.length +1, data.indexOf("3."));
     var symptom =  data.slice(data.indexOf(symptom_tit) + symptom_tit.length +1, data.indexOf(pulse_tit));
+    var status =  data.slice(data.indexOf(status_tit) + status_tit.length +1, data.indexOf(symptom_tit));
     var pulse = data.slice(data.indexOf(pulse_tit) + pulse_tit.length +1, data.indexOf(temperature_tit));
     var temperature = data.slice(data.indexOf(temperature_tit) + temperature_tit.length +1, data.indexOf(blood_pressure_tit));
     var blood_pressure = data.slice(data.indexOf(blood_pressure_tit) + blood_pressure_tit.length +1, data.indexOf(heart_beat_tit));
@@ -43,6 +44,6 @@ exports.store = async function (req, res) {
     var diagnose = data.slice(data.indexOf(diagnose_tit)  + diagnose_tit.length +1, data.indexOf("5. Kê toa"));
     var drug = data.slice(data.indexOf(drug_tit) + drug_tit.length +1, data.indexOf("Liều lượng"));
     const patient = await Patient.create({  name: name, age: age, gender: gender, job: job, address:address,reason_to_hos: reason_to_hos, symptom: symptom, pulse: pulse,
-    temperature: temperature , blood_pressure: blood_pressure, heart_beat: heart_beat, diagnose: diagnose, drug: drug  });
-
+    temperature: temperature , blood_pressure: blood_pressure, heart_beat: heart_beat, diagnose: diagnose, drug: drug, status: status  });
+    
 };
