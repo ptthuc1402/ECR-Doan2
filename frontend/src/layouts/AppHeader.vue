@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
+// import { useI18n } from 'vue-i18n';
 import { onMounted, ref } from 'vue';
 
-import { Locale } from '@/enums';
+// import { Locale } from '@/enums';
 import Favicon from '@/components/icons/Favicon.vue';
 import Github from '@/components/icons/Github.vue';
 import QQ from '@/components/icons/QQ.vue';
@@ -27,39 +27,35 @@ const logOut = () => {
 };
 
 // Change language
-const { t, locale } = useI18n();
-const useLanguage = ref(Locale.EN_US);
-const changeLanguage = (language: Locale) => {
-  useLanguage.value = language;
-  document.documentElement.setAttribute('lang', language);
-  locale.value = language;
-};
+// const { t, locale } = useI18n();
+// const useLanguage = ref(Locale.EN_US);
+// const changeLanguage = (language: Locale) => {
+//   useLanguage.value = language;
+//   document.documentElement.setAttribute('lang', language);
+//   locale.value = language;
+// };
 
- var user = JSON.parse(localStorage.getItem('user'));
+ var user = JSON.parse(localStorage.getItem('user')!);
   const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
-
    var data = initialState.status.loggedIn;
 
 
 onMounted(() => {
+
   // Locale auto detect
- var user = JSON.parse(localStorage.getItem('user'));
-  const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
+//  var user = JSON.parse(localStorage.getItem('user'));
+//   const initialState = user
+//   ? { status: { loggedIn: true }, user }
+//   : { status: { loggedIn: false }, user: null };
 
-   var data = initialState.status.loggedIn;
-    console.log(data);
-  const userLocale = navigator.language;
-  
-
+//   var data = initialState.status.loggedIn;
+  //   console.log(data);
+  // const userLocale = navigator.language;
 });
  
 </script>
-
-
 
 <template>
   <div
@@ -114,7 +110,7 @@ onMounted(() => {
                 d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
               ></path>
             </svg>
-            <span class="hidden font-normal md:inline capitalize">{{ t('header.theme') }}</span>
+            <!-- <span class="hidden font-normal md:inline capitalize">{{ t('header.theme') }}</span> -->
             <svg
               width="12px"
               height="12px"
@@ -217,72 +213,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <!-- <div title="Change Language" class="dropdown dropdown-end">
-          <label tabindex="0" class="btn btn-ghost normal-case" data-svelte-h="svelte-16sc62l">
-            <svg
-              class="h-5 w-5 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 512 512"
-            >
-              <path
-                d="M363,176,246,464h47.24l24.49-58h90.54l24.49,58H480ZM336.31,362,363,279.85,389.69,362Z"
-              ></path>
-              <path
-                d="M272,320c-.25-.19-20.59-15.77-45.42-42.67,39.58-53.64,62-114.61,71.15-143.33H352V90H214V48H170V90H32v44H251.25c-9.52,26.95-27.05,69.5-53.79,108.36-32.68-43.44-47.14-75.88-47.33-76.22L143,152l-38,22,6.87,13.86c.89,1.56,17.19,37.9,54.71,86.57.92,1.21,1.85,2.39,2.78,3.57-49.72,56.86-89.15,79.09-89.66,79.47L64,368l23,36,19.3-11.47c2.2-1.67,41.33-24,92-80.78,24.52,26.28,43.22,40.83,44.3,41.67L255,362Z"
-              ></path>
-            </svg>
-            <svg
-              width="12px"
-              height="12px"
-              class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 2048 2048"
-            >
-              <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
-            </svg>
-          </label>
-          <div
-            tabindex="0"
-            class="dropdown-content bg-base-200 text-base-content rounded-box top-px mt-16 w-56 overflow-y-auto shadow"
-          >
-            <ul class="menu gap-1" tabindex="0" >
-              <li @click="changeLanguage(Locale.ZH_CN)">
-                <button :class="useLanguage === Locale.ZH_CN ? 'btn-active' : ''">
-                  <img
-                    class="drop-shadow"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                    alt="中文"
-                    src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.0/svg/1f1e8-1f1f3.svg"
-                  />
-                  中文
-                </button>
-              </li>
-              <li @click="changeLanguage(Locale.EN_US)">
-                <button :class="useLanguage === Locale.EN_US ? 'btn-active' : ''">
-                  <img
-                    class="drop-shadow"
-                    loading="lazy"
-                    width="20"
-                    height="20"
-                    alt="English"
-                    src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.0/svg/1f1ec-1f1e7.svg"
-                  />
-                  English
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div> -->
- 
-
-
-
-
-         <div title="Change Language" class="dropdown dropdown-end"  v-if="data">
+        <div title="Profile" class="dropdown dropdown-end"  v-if="data">
           <label tabindex="0" class="btn btn-ghost normal-case" data-svelte-h="svelte-16sc62l">
             Menu
             <svg
@@ -301,7 +232,6 @@ onMounted(() => {
           >
             <ul class="menu gap-1 text-lg" tabindex="0" >
               <li>
-            
                 <button >
                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                   <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
@@ -320,9 +250,6 @@ onMounted(() => {
             </ul>
           </div>
         </div>
- 
-
- 
         <span  
           class="tooltip tooltip-bottom before:text-xs before:content-[attr(data-tip)]"
           data-tip="QQ"

@@ -1,7 +1,10 @@
 const User = require("../models/user.model.js");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-// Create and Save a new Tutorial
+
+// Create and Save a new users
+
+// validate signUp
 const validateSignUp = (email, password, confirmPassword) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     console.log(regex.test(email))
@@ -11,24 +14,27 @@ const validateSignUp = (email, password, confirmPassword) => {
     return {status: false, mark: (password.length < 4 && !regex.test(email)) ? 'both' :
     (password.length < 4 ? 'password' : !regex.test(email) ? 'email' : 'confirmPassword')};
 }
+
+// validate signIn
 const validateSignIn = (email, password) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if(regex.test(email) == true && password.length > 3) return {status: true, mark: 0};
     return {status: false, mark: (password.length < 4 && !regex.test(email)) ? 'both' : (password.length < 4 ? 'password' : 'email')};
 }
+
+// create new users
 exports.register = async function (req, res) {
-    const {name, email, password, firstName, lastName, confirmPassword } = req.body;
-    console.log(req.body);
+    const {name, email, password, confirmPassword } = req.body;
+    // console.log(req.body);
     let message = {
         email: '',
         password: '',
         confirmPassword: '',
-        firstName: '',
-        lastName: ''
+        name: ''
     };
     const validate = validateSignUp(email, password, confirmPassword);
     var status =false;
-    console.log(validate);
+    // console.log(validate);
     try {
         
             if(!validate.status) {
@@ -42,13 +48,14 @@ exports.register = async function (req, res) {
                 if (oldUser) return res.status(400).json({ message: "Email ton tai" });
 
                 const hashedPassword = await bcrypt.hash(password, 12);
-
+                
+                // create users and token to login
                 const user = await User.create({ email, password: hashedPassword, name: name });
                 const token = jwt.sign({ email: user.email, id: user._id },  '123jqwjeklqw', { expiresIn: "3h" });
                 console.log(token);
             
                 status = true;
-                console.log(status);
+                // console.log(status);
                 res.status(201).json({ status,token });
             }
      
@@ -58,6 +65,8 @@ exports.register = async function (req, res) {
         console.log(error);
     }
 };
+
+// authen users
 exports.signin = async function (req, res) {
     const { email, password } = req.body;
     console.log(req.body);
@@ -66,7 +75,6 @@ exports.signin = async function (req, res) {
         password: ''
     };
     const validate = validateSignIn(email, password);
-
     var status =false;
     try {
        
@@ -74,8 +82,8 @@ exports.signin = async function (req, res) {
             if(!validate.status) {
                 validate.mark == 'both' ? message = {email: "Sai định dạng", password: "Sai định dạng"} :
                 validate.mark == 'password' ? message.password = "Sai định dạng" : message.email = "Sai định dạng";
-                console.log('wrong2')
-                // return res.status(400).json({ message: message})
+                // console.log('wrong2')
+                return res.status(400).json({ message: message})
             }
             else{
                 const oldUser = await User.findOne({ email });
@@ -88,10 +96,9 @@ exports.signin = async function (req, res) {
 
                 if (!isPasswordCorrect) return res.status(400).json({ message: {noti: "Sai tài khoản hoặc mật khẩu"} });
 
-              
-                console.log('ok')
+                // console.log('ok')
                 const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, '123jqwjeklqw', { expiresIn: "3h" });
-                console.log(token);
+                // console.log(token)
                 var status =true;
                 res.status(200).json({ status,token  });
             }

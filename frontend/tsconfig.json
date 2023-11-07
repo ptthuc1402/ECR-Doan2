@@ -7,7 +7,6 @@
     "skipLibCheck": true,
     "allowJs": true,
     "noImplicitAny": false,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -25,7 +24,7 @@
     /* Import */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./*"]
     }
   },
   "include": [
