@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Home.vue'),
     // middleware
     beforeEnter: (to, from, next) => {
-      if (JSON.parse(localStorage.getItem('user')??'true')  === null) {
+      if (JSON.parse(localStorage.getItem('user')!) === null) {
         return next({ path: '/login' });
       }
       next();
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Login.vue'),
     // middleware
     beforeEnter: (to, from, next) => {
-      if (JSON.parse(localStorage.getItem('user') ?? 'false')) {
+      if (JSON.parse(localStorage.getItem('user')!) !== null) {
         return next({ path: '/home' });
       }
       next();
@@ -28,9 +28,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/register',
     component: () => import('@/views/Register.vue'),
+
     // middelware
     beforeEnter: (to, from, next) => {
-      if (JSON.parse(localStorage.getItem('user')??'false')) {
+      if (JSON.parse(localStorage.getItem('user')!) !== null ) {
         return next({ path: '/home' });
       }
       next();
@@ -42,7 +43,15 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/datepicker',
-    component: () => import('@/views/DatePicker.vue')
+    component: () => import('@/views/DatePicker.vue'),
+
+    // middleware
+    beforeEnter: (to, from, next) => {
+      if (JSON.parse(localStorage.getItem('user')!) === null ) {
+        return next({ path: '/login' });
+      }
+      next();
+    }
   },
   {
     // Not found
