@@ -136,14 +136,9 @@ async function loadSuccess() {
 async function saveData() {
   const data =  await toClipboard(prettifiedText.value);
   const data_send = data.text;
- axios.post('http://localhost:8080/ocr/ocr_detect', {
-                    data
+  axios.post('http://localhost:8080/ocr/ocr_detect', {data_send
                     }).then(response => [
-                  
-                    ] ) 
-                      var name_tit = "Họ và tên"
-
-   
+                    ])
 }
 
 

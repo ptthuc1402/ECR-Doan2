@@ -65,13 +65,13 @@
                 <th scope="col" class="px-6 py-3">
                     Symptom
                 </th>
-                                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3">
                     Temperature, blood pressure, pulse, heart beat
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Diagnose
                 </th>
-                                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3">
                     Drug
                 </th>
             </tr>
