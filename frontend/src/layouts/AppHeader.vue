@@ -40,7 +40,7 @@ const logOut = () => {
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
    var data = initialState.status.loggedIn;
-
+console.log(user);
 
 onMounted(() => {
 

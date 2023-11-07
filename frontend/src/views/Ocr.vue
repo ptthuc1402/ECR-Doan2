@@ -133,6 +133,15 @@ async function loadSuccess() {
   await tesseractRecognize(previewSrc.value);
 }
 
+async function saveData() {
+  const data =  await toClipboard(prettifiedText.value);
+  const data_send = data.text;
+  axios.post('http://localhost:8080/ocr/ocr_detect', {data_send
+                    }).then(response => [
+                    ])
+}
+
+
 function loadFailed() {
   progressStatus.value = Status.Fail;
 }
@@ -236,10 +245,10 @@ onMounted(async () => {
       </div>
       <div class="flex flex-row gap-2">
         <button class="btn normal-case" @click="copyText">{{ t('ocr.operations.copy') }}</button>
-        <button class="btn normal-case" @click="prettifyText">
-          {{ t('ocr.operations.prettify') }}
+        <button class="btn normal-case" @click="saveData">
+          Save to database
         </button>
-        <button class="btn normal-case" @click="resetText">{{ t('ocr.operations.raw') }}</button>
+        <!-- <button class="btn normal-case" @click="resetText">{{ t('ocr.operations.raw') }}</button> -->
         <button class="btn normal-case" > <router-link to="/home">
         <p class="text-center btn normal-case">
          Return Home
@@ -254,7 +263,7 @@ onMounted(async () => {
 import { defineComponent } from 'vue';
 import { NUpload, NUploadDragger, NIcon, NText, NP, NImage, NModal, NCard } from 'naive-ui';
 import { ArchiveOutline as ArchiveIcon } from '@vicons/ionicons5';
-
+import axios from "axios"
 export default defineComponent({
   components: {
     NUpload,
