@@ -107,7 +107,7 @@
             </tr>
 
             <!-- search -->
-            <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700" v-if='patients_search.length !== 0'   v-for="(patient, index) in patients">
+            <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700" v-else  v-for="(patient, index) in patients_search">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    {{patient.name}}
                 </th>
@@ -153,8 +153,7 @@ export default {
         return {
             patients: {
             },
-            patients_search: {
-            },
+            patients_search: [],
             search_key: ""
         }
     },
