@@ -5,7 +5,6 @@ const Patient = require("../models/patient.model.js");
 
 // create new users
 exports.store = async function (req, res) {
-
     //title
     const request = req.body;
     var name_tit = "Họ và tên"
@@ -27,7 +26,7 @@ exports.store = async function (req, res) {
     console.log(request)
     var n = '/n'
 
-     const data = request.data_send;
+    const data = request.data_send;
     //data after processing
     var name = data.slice(data.indexOf(name_tit) + name_tit.length +1, data.indexOf(age_tit)).trim();
     var age =  data.slice(data.indexOf(age_tit) + age_tit.length +1, data.indexOf(gender_tit));
@@ -45,5 +44,4 @@ exports.store = async function (req, res) {
     var drug = data.slice(data.indexOf(drug_tit) + drug_tit.length +1, data.indexOf("Liều lượng"));
     const patient = await Patient.create({  name: name, age: age, gender: gender, job: job, address:address,reason_to_hos: reason_to_hos, symptom: symptom, pulse: pulse,
     temperature: temperature , blood_pressure: blood_pressure, heart_beat: heart_beat, diagnose: diagnose, drug: drug, status: status  });
-    console.log (patient)
 };
