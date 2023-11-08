@@ -67,12 +67,8 @@ export default {
     
     },
     methods: {
-            
-    
             handleSubmit(e) {
-           console.log('success')
-            console.log(this.user);
-           axios.post('http://localhost:8080/auth/register', {
+                 axios.post('http://localhost:8080/auth/register', {
                     name: this.user.name,
                     email: this.user.email,
                     password: this.user.password,
@@ -89,8 +85,6 @@ export default {
                     }
                 },1000);
         },
-      
-
     }
 };
 </script>

@@ -5,7 +5,6 @@ const Patient = require("../models/patient.model.js");
 
 // create new users
 exports.store = async function (req, res) {
-
     //title
     const request = req.body;
     var name_tit = "Họ và tên"
@@ -27,7 +26,7 @@ exports.store = async function (req, res) {
     console.log(request)
     var n = '/n'
 
-     const data = request.data_send;
+    const data = request.data_send;
     //data after processing
     var name = data.slice(data.indexOf(name_tit) + name_tit.length +1, data.indexOf(age_tit)).trim();
     var age =  data.slice(data.indexOf(age_tit) + age_tit.length +1, data.indexOf(gender_tit));

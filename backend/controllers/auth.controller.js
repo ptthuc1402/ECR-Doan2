@@ -63,7 +63,6 @@ exports.register = async function (req, res) {
      
          } catch (error) {
         res.status(500).json({ message: "" });
-
         console.log(error);
     }
 };
@@ -80,8 +79,6 @@ exports.signin = async function (req, res) {
     console.log(validate)
     var status =false;
     try {
-       
-      
             if(!validate.status) {
                 validate.mark == 'both' ? message = {email: "Sai định dạng", password: "Sai định dạng"} :
                 validate.mark == 'password' ? message.password = "Sai định dạng" : message.email = "Sai định dạng";

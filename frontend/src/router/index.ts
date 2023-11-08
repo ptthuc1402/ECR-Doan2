@@ -42,18 +42,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Ocr.vue')
   },
   {
-    path: '/datepicker',
-    component: () => import('@/views/content/Appoinment.vue'),
-
-    // middleware
-    beforeEnter: (to, from, next) => {
-      if (JSON.parse(localStorage.getItem('user')!) === null ) {
-        return next({ path: '/login' });
-      }
-      next();
-    }
-  },
-  {
     // Not found
     path: '/:pathMatch(.*)*',
     redirect: '/login'
