@@ -7,9 +7,9 @@ const bcrypt = require('bcryptjs');
 // validate signUp
 const validateSignUp = (email, password, confirmPassword) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    console.log(regex.test(email))
-    console.log(password.length > 3)
-    console.log( password === confirmPassword)
+    // console.log(regex.test(email))
+    // console.log(password.length > 3)
+    // console.log( password === confirmPassword)
     if(regex.test(email) == true && password.length > 3 && password === confirmPassword) return {status: true, mark: 0};
     return {status: false, mark: (password.length < 4 && !regex.test(email)) ? 'both' :
     (password.length < 4 ? 'password' : !regex.test(email) ? 'email' : 'confirmPassword')};
@@ -43,9 +43,11 @@ exports.register = async function (req, res) {
                 validate.mark == 'email' ? message.email = "Failed" : message.confirmPassword = "Failed";
                 return res.status(400).json({ status});
             }else{
-                const oldUser = await User.findOne({ email }).then((result) => console.log(result));
-
-                if (oldUser) return res.status(400).json({ message: "Email ton tai" });
+                const oldUser = await User.find({ email: email })
+                console.log(oldUser);
+                if (oldUser.length !==0) {
+                    return res.status(400).json({ message: "Email ton tai" });
+                }
 
                 const hashedPassword = await bcrypt.hash(password, 12);
                 
@@ -75,6 +77,7 @@ exports.signin = async function (req, res) {
         password: ''
     };
     const validate = validateSignIn(email, password);
+    console.log(validate)
     var status =false;
     try {
        
