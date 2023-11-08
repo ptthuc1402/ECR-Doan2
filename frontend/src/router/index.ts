@@ -43,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/datepicker',
-    component: () => import('@/views/DatePicker.vue'),
+    component: () => import('@/views/content/Appoinment.vue'),
 
     // middleware
     beforeEnter: (to, from, next) => {

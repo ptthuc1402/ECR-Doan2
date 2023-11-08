@@ -7,9 +7,8 @@ const Patient = require("../models/patient.model.js");
 exports.index = async function (req, res) {
 
     //title
-
     const patients = await Patient.find({});
-    res.status(200).json({ patients  });
+    res.status(200).json({ patients });
 };
 
 

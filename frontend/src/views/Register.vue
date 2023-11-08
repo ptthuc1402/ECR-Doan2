@@ -64,15 +64,7 @@ export default {
         }
     },
     mounted(){
-    //show student code
-    //  if(this.navigate===true) {
-    //                      window.location.href = '/'
-                       
-    //                 }
-    //                 else{ 
-    //                     // console.log(this.navigate)
-    //                     //  window.location.href = '/register'
-    //                 }
+    
     },
     methods: {
             

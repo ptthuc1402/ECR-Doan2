@@ -1,6 +1,4 @@
 <template> 
-
-
 <div class="p-4 sm:ml-64">
    <div class="p-4  rounded-lg dark:border-gray-700">
       <div class="grid grid-cols-3 gap-4 mb-4">
@@ -77,7 +75,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700" v-if='patients_search.length === 0'   v-for="(patient, index) in patients">
+            <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700" v-if='patients_search.length ===0'   v-for="(patient, index) in patients">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    {{patient.name}}
                 </th>
@@ -109,7 +107,7 @@
             </tr>
 
             <!-- search -->
-             <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700" v-else   v-for="(patient, index) in patients_search">
+            <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700" v-if='patients_search.length !== 0'   v-for="(patient, index) in patients">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    {{patient.name}}
                 </th>
@@ -142,60 +140,40 @@
         </tbody>
     </table>
 </div>
-
-   </div>
+</div>
 </div>
 
 </template>
 
-<script lang="ts">
+<script lang="js">
 import axios from "axios"
 
 export default {
-    
     data () {
         return {
             patients: {
-
             },
-            patients_search:[],
+            patients_search: {
+            },
             search_key: ""
         }
     },
     mounted(){
         const data= this.search
          axios.get('http://localhost:8080/patient/index', {
-                   
-                    }).then(response => [
-                                 
+                    }).then(response => [   
                        this.patients = response.data.patients, 
-                       
-                             
-                    ]);  
-       
-                 
-                    
+                    ]);          
     },
-
-    
     methods: {
-         
         searchFunc() {
             const data= this.search_key
-            
-         axios.post('http://localhost:8080/patient/search', {
+            axios.post('http://localhost:8080/patient/search', {
                 data
-                    }).then(response => [
-                       console.log(response)    ,      
-                       this.patients_search = response.data.patients, 
-                       
-                             
+                    }).then(response => [     
+                       this.patients_search = response.data.patients,      
                     ]);     
     }
-       
-   
   }
-
 };
-
 </script> 

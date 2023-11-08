@@ -45,5 +45,4 @@ exports.store = async function (req, res) {
     var drug = data.slice(data.indexOf(drug_tit) + drug_tit.length +1, data.indexOf("Liều lượng"));
     const patient = await Patient.create({  name: name, age: age, gender: gender, job: job, address:address,reason_to_hos: reason_to_hos, symptom: symptom, pulse: pulse,
     temperature: temperature , blood_pressure: blood_pressure, heart_beat: heart_beat, diagnose: diagnose, drug: drug, status: status  });
-    console.log (patient)
 };
