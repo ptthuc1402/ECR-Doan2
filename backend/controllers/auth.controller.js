@@ -7,9 +7,6 @@ const bcrypt = require('bcryptjs');
 // validate signUp
 const validateSignUp = (email, password, confirmPassword) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    // console.log(regex.test(email))
-    // console.log(password.length > 3)
-    // console.log( password === confirmPassword)
     if(regex.test(email) == true && password.length > 3 && password === confirmPassword) return {status: true, mark: 0};
     return {status: false, mark: (password.length < 4 && !regex.test(email)) ? 'both' :
     (password.length < 4 ? 'password' : !regex.test(email) ? 'email' : 'confirmPassword')};
@@ -34,7 +31,6 @@ exports.register = async function (req, res) {
     };
     const validate = validateSignUp(email, password, confirmPassword);
     var status =false;
-    // console.log(validate);
     try {
         
             if(!validate.status) {
@@ -43,21 +39,19 @@ exports.register = async function (req, res) {
                 validate.mark == 'email' ? message.email = "Failed" : message.confirmPassword = "Failed";
                 return res.status(400).json({ status});
             }else{
+                
                 const oldUser = await User.find({ email: email })
-                console.log(oldUser);
+
                 if (oldUser.length !==0) {
                     return res.status(400).json({ message: "Email ton tai" });
                 }
-
                 const hashedPassword = await bcrypt.hash(password, 12);
-                
+
                 // create users and token to login
-                const user = await User.create({ email, password: hashedPassword, name: name });
+                const user = await User.create({ email, password: hashedPassword, name: name, role_id:2});
                 const token = jwt.sign({ email: user.email, id: user._id },  '123jqwjeklqw', { expiresIn: "3h" });
-                console.log(token);
-            
+
                 status = true;
-                // console.log(status);
                 res.status(201).json({ status,token });
             }
      
@@ -82,7 +76,6 @@ exports.signin = async function (req, res) {
             if(!validate.status) {
                 validate.mark == 'both' ? message = {email: "Sai định dạng", password: "Sai định dạng"} :
                 validate.mark == 'password' ? message.password = "Sai định dạng" : message.email = "Sai định dạng";
-                // console.log('wrong2')
                 return res.status(400).json({ message: message})
             }
             else{
@@ -96,9 +89,9 @@ exports.signin = async function (req, res) {
 
                 if (!isPasswordCorrect) return res.status(400).json({ message: {noti: "Sai tài khoản hoặc mật khẩu"} });
 
-                // console.log('ok')
+                
                 const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, '123jqwjeklqw', { expiresIn: "3h" });
-                // console.log(token)
+              
                 var status =true;
                 res.status(200).json({ status,token  });
             }

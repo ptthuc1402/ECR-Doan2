@@ -17,6 +17,10 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
+    role_id: {
+        type: String,
+        require: true
+    }
 
 }, { timestamps: true });
 

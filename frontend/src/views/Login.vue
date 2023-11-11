@@ -61,24 +61,19 @@ export default {
      
     },
     methods: {
-            
         handleSubmit(e) {
-
          axios.post('http://localhost:8080/auth/login', {
                     email: this.user_send.email,
                     password: this.user_send.password,
                     }).then(response => [
-                          
                         this.token = response.data.token,
-                          this.navigate = response.data.status
-                             
+                        this.navigate = response.data.status
                     ]);  
-                    console.log(this.navigate)
                      event.preventDefault()       
                 setTimeout(() => {
                    if(this.navigate){
-                                localStorage.setItem('user', JSON.stringify(this.token ));
-                                window.location.href = '/home'
+                        localStorage.setItem('user', JSON.stringify(this.token ));
+                        window.location.href = '/home'
                         }
                  },1000);
                          
