@@ -27,8 +27,8 @@ export default defineConfig(() => {
         },
         includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
         manifest: {
-          name: 'We OCR',
-          short_name: 'WeOCR',
+          name: 'BK Medical Management',
+          short_name: 'BKMM',
           description: 'An easy offline tool for OCR',
           theme_color: '#ffffff',
           icons: [

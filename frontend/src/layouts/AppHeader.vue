@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 // import { Locale } from '@/enums';
 import Favicon from '@/components/icons/Favicon.vue';
 import Github from '@/components/icons/Github.vue';
-import QQ from '@/components/icons/QQ.vue';
+// import QQ from '@/components/icons/QQ.vue';
 
 const VERSION: string = __VERSION__ as string;
 
@@ -72,14 +72,14 @@ onMounted(() => {
           >
             <Favicon />
             <div class="font-title inline-flex text-lg">
-              <span class="capitalize">we</span>
+              <span class="capitalize">BK</span>
               <span class="uppercase text-green-500">OCR</span>
             </div>
           </a>
           <div class="dropdown">
-            <label tabindex="0" class="link link-hover my-8 inline-block font-mono text-xs">{{
+            <!-- <label tabindex="0" class="link link-hover my-8 inline-block font-mono text-xs">{{
               VERSION
-            }}</label>
+            }}</label> -->
             <ul
               tabindex="0"
               class="dropdown-content menu menu-sm bg-base-200 rounded-box w-36 p-2 shadow"
@@ -254,7 +254,7 @@ onMounted(() => {
           class="tooltip tooltip-bottom before:text-xs before:content-[attr(data-tip)]"
           data-tip="QQ"
         >
-          <div class="flex-none items-center group relative">
+          <!-- <div class="flex-none items-center group relative">
             <a
               aria-label="QQ"
               target="_blank"
@@ -264,7 +264,7 @@ onMounted(() => {
             >
               <QQ />
             </a>
-          </div>
+          </div> -->
         </span>
         <span
           class="tooltip tooltip-bottom before:text-xs before:content-[attr(data-tip)]"
