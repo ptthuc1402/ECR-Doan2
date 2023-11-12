@@ -27,6 +27,7 @@ exports.store = async function (req, res) {
     var n = '/n'
 
     const data = request.data_send;
+
     //data after processing
     var name = data.slice(data.indexOf(name_tit) + name_tit.length +1, data.indexOf(age_tit)).trim();
     var age =  data.slice(data.indexOf(age_tit) + age_tit.length +1, data.indexOf(gender_tit));
