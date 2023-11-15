@@ -50,9 +50,11 @@ exports.register = async function (req, res) {
                 // create users and token to login
                 const user = await User.create({ email, password: hashedPassword, name: name, role_id:2});
                 const token = jwt.sign({ email: user.email, id: user._id },  '123jqwjeklqw', { expiresIn: "3h" });
-
+                const role_id = user.role_id;
+                // console.log(role_id);
+                // localStorage.setItem('role', JSON.stringify(role_id ));
                 status = true;
-                res.status(201).json({ status,token });
+                res.status(201).json({ status,token,role_id });
             }
      
          } catch (error) {
@@ -80,6 +82,7 @@ exports.signin = async function (req, res) {
             }
             else{
                 const oldUser = await User.findOne({ email });
+                // console.log(oldUser);
                 
                 // if (oldUser.hasOwnProperty('googleId')) return res.status(405).json({ message: "This email was used by Google login" });
 
@@ -92,8 +95,14 @@ exports.signin = async function (req, res) {
                 
                 const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, '123jqwjeklqw', { expiresIn: "3h" });
               
+                
+
+                const role_id = oldUser.role_id;
+                console.log(role_id);
+                // localStorage.setItem('role', JSON.stringify(role_id));
+
                 var status =true;
-                res.status(200).json({ status,token  });
+                res.status(200).json({ status,token,role_id});
             }
     } catch (err) {
         res.status(500).json({ message: {noti: "Something went wrong!"} });

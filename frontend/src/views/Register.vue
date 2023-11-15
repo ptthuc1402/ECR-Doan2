@@ -1,6 +1,6 @@
 <template> 
-<section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<section class="bg-gray-50 dark:bg-gray-900 mx-auto md:h-[50%] lg:py-0">
+  <div class="flex flex-col items-center justify-center px-6 py-8 ">
       <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
           <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
           Flowbite    
@@ -60,7 +60,8 @@ export default {
                 confirmPassword: ""
             },
             navigate: false,
-            token : ""
+            token : "",
+            role_id: "",
         }
     },
     mounted(){
@@ -76,11 +77,13 @@ export default {
                     }).then(response => [
                     this.navigate = response.data.status,
                     this.token = response.data.token,
-                    ] ) 
+                    this.role_id = response.data.role_id
+                    ]) 
                     event.preventDefault()       
                 setTimeout(() => {
                     if(this.navigate) { 
                         localStorage.setItem('user', JSON.stringify(this.token ));
+                        localStorage.setItem('roleid', JSON.stringify(this.role_id ));
                         window.location.href = '/home'
                     }
                 },1000);
