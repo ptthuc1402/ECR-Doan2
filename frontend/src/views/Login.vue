@@ -31,6 +31,7 @@
                       <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500" @click="logOut">Forgot password?</a>
                   </div>
                    <button class="btn btn-primary "  @click="handleSubmit" >Login</button>
+                   <button class="btn btn-primary "  @click="googleAuth">Login with google</button>
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                       Don’t have an account yet? <a href="/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
                   </p>
@@ -43,6 +44,7 @@
 <script>
 
 import axios from "axios"
+
 export default {
     
     data () {
@@ -79,8 +81,13 @@ export default {
                     }
                  },1000);
         },
+
         logOut() {
             localStorage.removeItem('user');
+        },
+
+        googleAuth() {
+            window.open('http://localhost:8080/auth/google',"_self")
         }
 
     }

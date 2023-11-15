@@ -431,20 +431,21 @@ export default {
        toggleEdit(patients) {
       // Toggle the editable state
       this.isEditable = !this.isEditable;
-      console.log(  this.isEditable);
+      // console.log(  this.isEditable);
     
     },
       saveEdit(patients) {
       // Toggle the editable state
       this.isEditable = !this.isEditable;
-    
+
     },
       saveData(patients) {
       // Toggle the editable state
-      console.log(patients)
+      // console.log(patients)
           axios.post('http://localhost:8080/ocr/ocr_detect', {patients
                    }).then(response => [
-                   ])
+                   ]);
+          window.location.href = '/' ;
     
     }
   }

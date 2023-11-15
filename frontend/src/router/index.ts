@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     // Not found
     path: '/:pathMatch(.*)*',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: "/home1",
