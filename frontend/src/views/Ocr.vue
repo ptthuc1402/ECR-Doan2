@@ -33,7 +33,7 @@ const modalTimeout = ref(DEFAULT_TIMEOUT);
 const recognizeText = ref('');
 const prettifiedText = ref('');
   
-var patients = {name: "", age: "", gender: "", address: "", job:"", reason_to_hos: "", symptom: "", status: "", pulse: "", temperature: " ", blood_pressure: "",
+var patients = {name: "", age: "", gender: "", address: "", job:"", reason_to_hos: "", symptom: "", status: "", oxygen:"", temperature: " ", 
 heart_beat:"", diagnose: "", drug: ""}
 /* OCR engine */
 const tesseract = new TesseractEngine();
@@ -67,9 +67,7 @@ async function tesseractRecognize(url: string) {
     var reason_to_hos =  str.slice(str.indexOf(reason_to_hos_tit) + reason_to_hos_tit.length +1, str.indexOf("3."));
     var symptom =  str.slice(str.indexOf(symptom_tit) + symptom_tit.length +1, str.indexOf(pulse_tit));
     var status =  str.slice(str.indexOf(status_tit) + status_tit.length +1, str.indexOf(symptom_tit));
-    var pulse = str.slice(str.indexOf(pulse_tit) + pulse_tit.length +1, str.indexOf(temperature_tit));
     var temperature = str.slice(str.indexOf(temperature_tit) + temperature_tit.length +1, str.indexOf(blood_pressure_tit));
-    var blood_pressure = str.slice(str.indexOf(blood_pressure_tit) + blood_pressure_tit.length +1, str.indexOf(heart_beat_tit));
     var heart_beat = str.slice(str.indexOf(heart_beat_tit) + heart_beat_tit.length +1, str.indexOf("4. Chẩn đoán"));
     var diagnose = str.slice(str.indexOf(diagnose_tit)  + diagnose_tit.length +1, str.indexOf("5. Kê toa"));
     var drug = str.slice(str.indexOf(drug_tit) + drug_tit.length +1, str.indexOf("Liều lượng"));
@@ -82,9 +80,7 @@ async function tesseractRecognize(url: string) {
     patients.reason_to_hos = reason_to_hos;
     patients.symptom = symptom;
     patients.status = status;
-    patients.pulse = pulse;
     patients.temperature = temperature;
-    patients.blood_pressure = blood_pressure;
     patients.heart_beat = heart_beat;
     patients.diagnose = diagnose;
     patients.drug = drug;   
@@ -410,7 +406,9 @@ onMounted(async () => {
  <button :disabled="!patients.name" class="btn normal-case mt-10 float-right mr-[200px]" @click="saveData(patients)">
         Save to database
         </button>
-
+ <button  :disabled="!patients.name"  class="btn normal-case mt-10 float-right mr-[200px]" @click="Measure">
+       Measure
+        </button>
 
 </template>
 
@@ -444,7 +442,8 @@ export default {
         isEditable : false ,
         heart_beat : "" ,
         ir_value : "" ,
-        temperature: "" 
+        temperature: "" ,
+        isMeasure: false
       
         }
     },
@@ -478,10 +477,24 @@ export default {
     },
       saveData(patients) {
       // Toggle the editable state
+     
+     patients.temperature = this.temperature; 
+     patients.oxygen = this.ir_value; 
+     patients.heart_beat = this.heart_beat; 
+
       console.log(patients)
           axios.post('http://localhost:8080/ocr/ocr_detect', {patients
                    }).then(response => [
                    ])
+    
+    },
+          Measure(patients) {
+      // Toggle the editable state
+      console.log('jjj')
+      this.isMeasure = !this.isMeasure;
+      console.log(this.isMeasure)
+       app.database()
+            .ref('doan').set({isMeasure : this.isMeasure})
     
     }
   }
