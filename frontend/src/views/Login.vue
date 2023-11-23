@@ -49,11 +49,11 @@ export default {
         return {
             user_send: {
                 email: '',
-                password: ''
-               
+                password: '',
             },
             navigate: false,
-            token: ""
+            token: "",
+            role_id: "",
         }
     },
     mounted(){
@@ -67,17 +67,17 @@ export default {
                     password: this.user_send.password,
                     }).then(response => [
                         this.token = response.data.token,
-                        this.navigate = response.data.status
-                    ]);  
+                        this.navigate = response.data.status,
+                        this.role_id = response.data.role_id,
+                    ]);   
                      event.preventDefault()       
                 setTimeout(() => {
                    if(this.navigate){
-                        localStorage.setItem('user', JSON.stringify(this.token ));
+                        localStorage.setItem('user', JSON.stringify(this.token));
+                        localStorage.setItem('roleid',JSON.stringify(this.role_id));
                         window.location.href = '/home'
-                        }
+                    }
                  },1000);
-                         
-                         
         },
         logOut() {
             localStorage.removeItem('user');

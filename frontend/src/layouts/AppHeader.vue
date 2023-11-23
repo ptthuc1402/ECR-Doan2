@@ -7,7 +7,7 @@ import Favicon from '@/components/icons/Favicon.vue';
 import Github from '@/components/icons/Github.vue';
 // import QQ from '@/components/icons/QQ.vue';
 
-const VERSION: string = __VERSION__ as string;
+// const VERSION: string = __VERSION__ as string;
 
 // Change theme
 const emit = defineEmits(['update-theme']);
