@@ -33,7 +33,7 @@ const modalTimeout = ref(DEFAULT_TIMEOUT);
 const recognizeText = ref('');
 const prettifiedText = ref('');
   
-var patients = {name: "", age: "", gender: "", address: "", job:"", reason_to_hos: "", symptom: "", status: "", pulse: "", temperature: " ", blood_pressure: "",
+var patients = {name: "", age: "", gender: "", address: "", job:"", reason_to_hos: "", symptom: "", status: "", oxygen:"", temperature: " ", 
 heart_beat:"", diagnose: "", drug: ""}
 /* OCR engine */
 const tesseract = new TesseractEngine();
@@ -67,9 +67,7 @@ async function tesseractRecognize(url: string) {
     var reason_to_hos =  str.slice(str.indexOf(reason_to_hos_tit) + reason_to_hos_tit.length +1, str.indexOf("3."));
     var symptom =  str.slice(str.indexOf(symptom_tit) + symptom_tit.length +1, str.indexOf(pulse_tit));
     var status =  str.slice(str.indexOf(status_tit) + status_tit.length +1, str.indexOf(symptom_tit));
-    var pulse = str.slice(str.indexOf(pulse_tit) + pulse_tit.length +1, str.indexOf(temperature_tit));
     var temperature = str.slice(str.indexOf(temperature_tit) + temperature_tit.length +1, str.indexOf(blood_pressure_tit));
-    var blood_pressure = str.slice(str.indexOf(blood_pressure_tit) + blood_pressure_tit.length +1, str.indexOf(heart_beat_tit));
     var heart_beat = str.slice(str.indexOf(heart_beat_tit) + heart_beat_tit.length +1, str.indexOf("4. Chẩn đoán"));
     var diagnose = str.slice(str.indexOf(diagnose_tit)  + diagnose_tit.length +1, str.indexOf("5. Kê toa"));
     var drug = str.slice(str.indexOf(drug_tit) + drug_tit.length +1, str.indexOf("Liều lượng"));
@@ -82,9 +80,7 @@ async function tesseractRecognize(url: string) {
     patients.reason_to_hos = reason_to_hos;
     patients.symptom = symptom;
     patients.status = status;
-    patients.pulse = pulse;
     patients.temperature = temperature;
-    patients.blood_pressure = blood_pressure;
     patients.heart_beat = heart_beat;
     patients.diagnose = diagnose;
     patients.drug = drug;   
@@ -387,7 +383,7 @@ onMounted(async () => {
                         <input class='w-[200px]' v-else v-model="patients.symptom" />
                 </td>
                     <td class="px-6 py-4" >
-                      <span>{{patients.temperature }}, {{ patients.blood_pressure }},  {{patients.pulse }}, {{patients.heart_beat}} </span> 
+                      <span> Nhip tim :{{  heart_beat}} , Nong do o2: {{ir_value}}, temperature: {{temperature}} </span> 
                 </td>
 
                 <td class="px-6 py-4" >
@@ -408,24 +404,64 @@ onMounted(async () => {
     </table>
 </div>
  <button :disabled="!patients.name" class="btn normal-case mt-10 float-right mr-[200px]" @click="saveData(patients)">
-          Save to database
+        Save to database
         </button>
+ <button  :disabled="!patients.name"  class="btn normal-case mt-10 float-right mr-[200px]" @click="Measure">
+       Measure
+        </button>
+
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { NUpload, NUploadDragger, NIcon, NText, NP, NImage, NModal, NCard } from 'naive-ui';
 import { ArchiveOutline as ArchiveIcon } from '@vicons/ionicons5';
-import axios from "axios"
+import firebase from 'firebase'
+
+import axios from "axios";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAzrKDhF4ESCb1j2ro004RRpkNpIb_27s4",
+  authDomain: "doan2-e0b77.firebaseapp.com",
+  databaseURL: "https://doan2-e0b77-default-rtdb.firebaseio.com",
+  projectId: "doan2-e0b77",
+  storageBucket: "doan2-e0b77.appspot.com",
+  messagingSenderId: "967180054417",
+  appId: "1:967180054417:web:231ed78f296c3febf6b430",
+  measurementId: "G-L6ZBY1T245"
+};
+const app = firebase.initializeApp(firebaseConfig);
+
+let db = app.database()
+let ref_test = db.ref('doan')
+
 export default {
     data () {
         return {
-        isEditable : false    
+        isEditable : false ,
+        heart_beat : "" ,
+        ir_value : "" ,
+        temperature: "" ,
+        isMeasure: false
       
         }
     },
     mounted(){
-     
+     const self = this;
+        app.database()
+            .ref('doan')
+            .on('value', function(snapshot) {
+                // const id = snapshot.key;
+    
+                //----------OR----------//
+                self.heart_beat = snapshot.val().heart_beat || null;
+                 self.ir_value = snapshot.val().ir_value || null;
+                  self.temperature = snapshot.val().temperature || null;
+                // if (data) {
+                //   const id = Object.keys(data)[0];
+                // }
+            });
     },
     methods: {
        toggleEdit(patients) {
@@ -441,10 +477,24 @@ export default {
     },
       saveData(patients) {
       // Toggle the editable state
+     
+     patients.temperature = this.temperature; 
+     patients.oxygen = this.ir_value; 
+     patients.heart_beat = this.heart_beat; 
+
       console.log(patients)
           axios.post('http://localhost:8080/ocr/ocr_detect', {patients
                    }).then(response => [
                    ])
+    
+    },
+          Measure(patients) {
+      // Toggle the editable state
+      console.log('jjj')
+      this.isMeasure = !this.isMeasure;
+      console.log(this.isMeasure)
+       app.database()
+            .ref('doan').set({isMeasure : this.isMeasure})
     
     }
   }

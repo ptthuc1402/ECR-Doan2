@@ -33,7 +33,7 @@ const patientSchema = new Schema({
     {
         type: String,
     },
-    blood_pressure:
+    oxygen:
     {
         type: String,
     },
