@@ -1,9 +1,8 @@
 module.exports = app => {
+
     const auth = require("../controllers/auth.controller.js");
 
     const passport = require('passport');
-
-    const User = require('../models/user.model.js');
 
     const router = require("express").Router();
 
@@ -32,6 +31,13 @@ module.exports = app => {
                 failureRedirect: "auth/login/failed",
             }),
           );
+
+    router.get("/logout", (req, res) => {
+            req.session = null;
+            req.logout();
+            res.redirect('/login');
+    })
+        
     app.use('/auth', router);
 };
   

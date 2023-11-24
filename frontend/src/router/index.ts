@@ -32,7 +32,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/register',
     component: () => import('@/views/Register.vue'),
-
     // middelware
     beforeEnter: (to, from, next) => {
       if (JSON.parse(localStorage.getItem('user')!) !== null ) {

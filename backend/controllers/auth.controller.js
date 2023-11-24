@@ -23,7 +23,6 @@ const validateSignIn = (email, password) => {
 // create new users
 exports.register = async function (req, res) {
     const {name, email, password, confirmPassword } = req.body;
-    // console.log(req.body);
     let message = {
         email: '',
         password: '',
@@ -81,11 +80,8 @@ exports.signin = async function (req, res) {
                 return res.status(400).json({ message: message})
             }
             else{
-                const oldUser = await User.findOne({ email });
-
-                // console.log(oldUser);
                 
-                // if (oldUser.hasOwnProperty('googleId')) return res.status(405).json({ message: "This email was used by Google login" });
+                const oldUser = await User.findOne({ email });
 
                 if (!oldUser) return res.status(404).json({ message: {noti: "Không tồn tại"} });
 
@@ -97,9 +93,6 @@ exports.signin = async function (req, res) {
                 const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "3h" });
               
                 const role_id = oldUser.role_id;
-                
-                // console.log(role_id);
-                // localStorage.setItem('role', JSON.stringify(role_id));
 
                 var status =true;
                 res.status(200).json({ status,token,role_id});
