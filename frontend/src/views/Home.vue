@@ -3,6 +3,7 @@
 // import { useI18n } from 'vue-i18n';
 import Appoinment from './content/Appoinment.vue'
 import PatientView from "./content/PatientView.vue"
+import AppoinmentAdmin from "./content/AppoinmentAdmin.vue"
 // const { t, locale } = useI18n();
 
 
@@ -14,7 +15,8 @@ components:  {PatientView,Appoinment},
         return {
             option: "", 
             patient: 'patient_page',
-            appoinment: 'appoinment_page'
+            appoinment: 'appoinment_page',
+            appoinment_admin: "appoinment_admin_page"
         }
     }
 }
@@ -62,10 +64,18 @@ components:  {PatientView,Appoinment},
 
          <li>
             <a  @click="option=appoinment"  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                  <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-               </svg>
+              <svg class="w-6 h-6 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+         </svg>
                <span class="flex-1 ml-3 whitespace-nowrap">Appoiment</span>
+            </a>
+         </li>
+          <li>
+            <a  @click="option=appoinment_admin"  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg class="w-6 h-6 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+             <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M10 6v4l3.276 3.276M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+             </svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">All Appoiments</span>
             </a>
          </li>
 
@@ -102,4 +112,5 @@ components:  {PatientView,Appoinment},
 </aside>
 <PatientView v-if="option==patient"></PatientView>
 <Appoinment v-if="option==appoinment"></Appoinment>
+<AppoinmentAdmin v-if="option==appoinment_admin"></AppoinmentAdmin>
 </template>
