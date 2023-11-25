@@ -319,7 +319,7 @@ onMounted(async () => {
 
 
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" v-if="patients.name!='' ">
         <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -383,7 +383,7 @@ onMounted(async () => {
                         <input class='w-[200px]' v-else v-model="patients.symptom" />
                 </td>
                     <td class="px-6 py-4" >
-                      <span> Nhip tim :{{  heart_beat}} , Nong do o2: {{ir_value}}, temperature: {{temperature}} </span> 
+                      <span v-if='isMeasure'> Nhip tim :{{  heart_beat}} , Nong do o2: {{ir_value}}, temperature: {{temperature}} </span> 
                 </td>
 
                 <td class="px-6 py-4" >
@@ -402,14 +402,27 @@ onMounted(async () => {
             </tr>
         </tbody>
     </table>
+    
+
 </div>
+<div v-if="patients.name!='' "> 
  <button :disabled="!patients.name" class="btn normal-case mt-10 float-right mr-[200px]" @click="saveData(patients)">
         Save to database
         </button>
  <button  :disabled="!patients.name"  class="btn normal-case mt-10 float-right mr-[200px]" @click="Measure">
        Measure
         </button>
-
+        </div> 
+<div id="toast-success"  v-if="isToast==true" class="flex items-center w-full float-right mr-[100px] max-w-xs p-4 mb-4 mt-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+        </svg>
+        <span class="sr-only">Check icon</span>
+    </div>
+    <div class="ms-3 text-sm font-normal">Save patient information successfully!</div>
+  
+</div>
 </template>
 
 <script lang="ts">
@@ -443,7 +456,8 @@ export default {
         heart_beat : "" ,
         ir_value : "" ,
         temperature: "" ,
-        isMeasure: false
+        isMeasure: false,
+        isToast: false
       
         }
     },
@@ -477,16 +491,19 @@ export default {
     },
       saveData(patients) {
       // Toggle the editable state
-     
+      this.isToast =true
+      setTimeout(() => {
+          this.isToast =false
+      }, "2000")
      patients.temperature = this.temperature; 
      patients.oxygen = this.ir_value; 
      patients.heart_beat = this.heart_beat; 
 
-      console.log(patients)
           axios.post('http://localhost:8080/ocr/ocr_detect', {patients
                    }).then(response => [
+
                    ])
-    
+        
     },
           Measure(patients) {
       // Toggle the editable state
