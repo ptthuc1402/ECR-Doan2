@@ -32,7 +32,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/register',
     component: () => import('@/views/Register.vue'),
-
     // middelware
     beforeEnter: (to, from, next) => {
       if (JSON.parse(localStorage.getItem('user')!) !== null ) {
@@ -48,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     // Not found
     path: '/:pathMatch(.*)*',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: "/home1",

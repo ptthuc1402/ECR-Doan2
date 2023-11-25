@@ -481,13 +481,13 @@ export default {
        toggleEdit(patients) {
       // Toggle the editable state
       this.isEditable = !this.isEditable;
-      console.log(  this.isEditable);
+      // console.log(  this.isEditable);
     
     },
       saveEdit(patients) {
       // Toggle the editable state
       this.isEditable = !this.isEditable;
-    
+
     },
       saveData(patients) {
       // Toggle the editable state

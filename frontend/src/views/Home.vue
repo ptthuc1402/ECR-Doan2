@@ -1,22 +1,24 @@
 <script setup lang="js">
 // import { Locale } from '@/enums';
 // import { useI18n } from 'vue-i18n';
-import Appoinment from './content/Appoinment.vue'
+import AddDoctor from './content/Add_doctor.vue'
 import PatientView from "./content/PatientView.vue"
 import AppoinmentAdmin from "./content/AppoinmentAdmin.vue"
 // const { t, locale } = useI18n();
 
-
+   
 </script>
 <script lang="js">
 export default {
-components:  {PatientView,Appoinment},
+components:  {PatientView,AddDoctor},
     data() {
         return {
             option: "", 
             patient: 'patient_page',
             appoinment: 'appoinment_page',
-            appoinment_admin: "appoinment_admin_page"
+            add_doctor: 'add_doctor_page',
+            appoinment_admin: "appoinment_admin_page",
+            
         }
     }
 }
@@ -63,11 +65,11 @@ components:  {PatientView,Appoinment},
          </li>
 
          <li>
-            <a  @click="option=appoinment"  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a  @click="option=add_doctor"  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
               <svg class="w-6 h-6 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
          </svg>
-               <span class="flex-1 ml-3 whitespace-nowrap">Appoiment</span>
+               <span class="flex-1 ml-3 whitespace-nowrap">Add Doctor</span>
             </a>
          </li>
           <li>
@@ -111,6 +113,7 @@ components:  {PatientView,Appoinment},
    </div>
 </aside>
 <PatientView v-if="option==patient"></PatientView>
+<AddDoctor v-if="option==add_doctor"></AddDoctor>
 <Appoinment v-if="option==appoinment"></Appoinment>
 <AppoinmentAdmin v-if="option==appoinment_admin"></AppoinmentAdmin>
 </template>

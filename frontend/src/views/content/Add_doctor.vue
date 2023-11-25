@@ -75,31 +75,12 @@
                         </select>
                       </div>
 
-                      <div class="md:col-span-3">
-                        <label for="date">Ngày khám</label>
-                        <input type="date" v-model="doctor.date" id="chosen-date" name="chosen-date" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"> 
-                      </div>
-
-                      <div class="md:col-span-2">
-                        <label for="time">Buổi khám</label>
-                        <select type="text" v-model="doctor.time" name="time" id="time" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="">
-                          <option value=""></option>
-                          <option value="morning">Buổi sáng</option>
-                          <option value="noon">Buổi trưa</option>
-                          <option value="afternoon">Buổi chiều</option>
-                      </select>
-                      </div>
-
-                      <div class="md:col-span-5">
-                        <label for="syms">Triệu chứng</label>
-                        <textarea type="text" v-model="doctor.sym" name="sym" rows = "5" class="h-20 border mt-1 rounded px-2 w-full bg-gray-50"></textarea>
-                      </div>
-
                       <div class="md:col-span-5 text-right">
                         <div class="inline-flex items-end">
                           <button @click="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
                         </div>
                       </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -125,16 +106,13 @@ import axios from 'axios';
                 address: "",
                 sex: "",
                 spec:"",
-                date:"",
-                time:"",
-                sym:"",
             },
     }
   },
   methods: {
      submit(e) 
      {
-        axios.post('http://localhost:8080/appoint/store',
+        axios.post('http://localhost:8080/doctor/add_doctor',
         {
             name : this.doctor.name,
             email: this.doctor.email,
@@ -143,9 +121,6 @@ import axios from 'axios';
             address: this.doctor.address,
             sex: this.doctor.sex,
             spec: this.doctor.spec,
-            date: this.doctor.date,
-            time: this.doctor.time,
-            sym: this.doctor.sym,
         }).then(response => [    
         ])
         window.location.reload(); 

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // create table users
-const userSchema = new Schema({
+const doctorSchema = new Schema({
     name: {
         type: String,
         require: true
@@ -13,36 +13,30 @@ const userSchema = new Schema({
         require: true,
         unique: true
     },
-    password: {
+    birthday: {
         type: String,
         require: true
     },
-    role_id: {
+    phone: {
         type: String,
         require: true
     },
-    googleId:
-    {
+    address: {
         type: String,
-        require:false
+        require: true
     },
-    accessToken: 
-    {
+    sex: {
         type: String,
+        require: true
     },
-    picture: 
-    {
-        type: String
-    },
-    idToken:
-    {
-        type: String
+    spec: {
+        type: String,
+        require: true
     }
-
 
 }, { timestamps: true });
 
 
-const User = mongoose.model('users', userSchema);
+const Doctor = mongoose.model('doctor', doctorSchema);
 
-module.exports = User;
+module.exports = Doctor;
