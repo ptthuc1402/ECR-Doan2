@@ -13,7 +13,7 @@ const doctorSchema = new Schema({
         require: true,
         unique: true
     },
-    birthday: {
+    birth: {
         type: String,
         require: true
     },

@@ -54,7 +54,7 @@ require("./routes/auth.routes")(app);
 require("./routes/ocr.routes")(app);
 require("./routes/patient.routes")(app);
 require("./routes/appoint.routes")(app);
-
+require("./routes/doctor.routes")(app);
 
 
 app.use(log);

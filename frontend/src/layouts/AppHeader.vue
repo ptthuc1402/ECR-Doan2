@@ -63,7 +63,7 @@ onMounted(() => {
             <Favicon />
             <div class="font-title inline-flex text-lg">
               <span class="capitalize">BK</span>
-              <span class="uppercase text-green-500">OCR</span>
+              <span class="uppercase text-green-500">Health</span>
             </div>
           </a>
           <div class="dropdown">

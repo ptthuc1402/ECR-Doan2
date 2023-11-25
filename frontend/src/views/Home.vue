@@ -5,6 +5,7 @@ import AddDoctor from './content/Add_doctor.vue'
 import PatientView from "./content/PatientView.vue"
 import AppoinmentAdmin from "./content/AppoinmentAdmin.vue"
 import Appoinment from "./content/Appoinment.vue"
+import IndexDoctor from "./content/Index_doctor.vue"
 // const { t, locale } = useI18n();
 
    
@@ -19,6 +20,7 @@ components:  {PatientView,AddDoctor,Appoinment},
             appoinment: 'appoinment_page',
             add_doctor: 'add_doctor_page',
             appoinment_admin: "appoinment_admin_page",
+            index_doctor: "index_doctor_page",
             
         }
     }
@@ -27,14 +29,14 @@ components:  {PatientView,AddDoctor,Appoinment},
 </script> 
 <template>
 
-<aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 mt-[65px]" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
       <ul class="space-y-2 font-medium text-xl leading-10">
          <li>
             <i class="fa-solid fa-bars"></i>
          </li>
 
-         <li>
+         <!-- <li>
             <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
@@ -42,7 +44,7 @@ components:  {PatientView,AddDoctor,Appoinment},
                </svg>
                <span class="ml-3">Dashboard</span>
             </a>
-         </li>
+         </li> -->
 
          <li>
             <a href="/ocr" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -67,10 +69,18 @@ components:  {PatientView,AddDoctor,Appoinment},
 
          <li>
             <a  @click="option=add_doctor"  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="w-6 h-6 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
-         </svg>
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+               </svg>
                <span class="flex-1 ml-3 whitespace-nowrap">Add Doctor</span>
+            </a>
+         </li>
+                  <li>
+            <a  @click="option=index_doctor"  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4H1m3 4H1m3 4H1m3 4H1m6.071.286a3.429 3.429 0 1 1 6.858 0M4 1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm9 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
+         </svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">Doctor</span>
             </a>
          </li>
 
@@ -127,4 +137,5 @@ components:  {PatientView,AddDoctor,Appoinment},
 <AddDoctor v-if="option==add_doctor"></AddDoctor>
 <Appoinment v-if="option==appoinment"></Appoinment>
 <AppoinmentAdmin v-if="option==appoinment_admin"></AppoinmentAdmin>
+<IndexDoctor v-if="option==index_doctor"></IndexDoctor>
 </template>
