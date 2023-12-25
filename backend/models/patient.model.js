@@ -8,6 +8,9 @@ const patientSchema = new Schema({
         type: String,
         require: true
     },
+    date_to_hos: {
+        type: String,
+    },
     age: {
         type: String,
     },
@@ -53,7 +56,9 @@ const patientSchema = new Schema({
     {
         type: String,
     },
-
+    patient_id: {
+        type: String
+    }
 
 }, { timestamps: true });
 
