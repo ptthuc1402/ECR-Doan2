@@ -435,19 +435,18 @@ import axios from "axios";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAzrKDhF4ESCb1j2ro004RRpkNpIb_27s4",
-  authDomain: "doan2-e0b77.firebaseapp.com",
-  databaseURL: "https://doan2-e0b77-default-rtdb.firebaseio.com",
-  projectId: "doan2-e0b77",
-  storageBucket: "doan2-e0b77.appspot.com",
-  messagingSenderId: "967180054417",
-  appId: "1:967180054417:web:231ed78f296c3febf6b430",
-  measurementId: "G-L6ZBY1T245"
+  apiKey: "AIzaSyAfj9Za-9lkRYgrvKpXptViw6CQbi1jqjo",
+  authDomain: "doan2final-2fd75.firebaseapp.com",
+  databaseURL: "https://doan2final-2fd75-default-rtdb.firebaseio.com",
+  projectId: "doan2final-2fd75",
+  storageBucket: "doan2final-2fd75.appspot.com",
+  messagingSenderId: "760497431612",
+  appId: "1:760497431612:web:f9932bf9b69b3445ed8f39"
 };
 const app = firebase.initializeApp(firebaseConfig);
 
 let db = app.database()
-let ref_test = db.ref('doan')
+let ref_test = db.ref('doanfinal')
 
 export default {
     data () {
