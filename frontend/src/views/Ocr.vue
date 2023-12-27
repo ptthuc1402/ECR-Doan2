@@ -33,8 +33,8 @@ const modalTimeout = ref(DEFAULT_TIMEOUT);
 const recognizeText = ref('');
 const prettifiedText = ref('');
   
-var patients = {name: "", age: "", gender: "", address: "", job:"", reason_to_hos: "", symptom: "", status: "", oxygen:"", temperature: " ", 
-heart_beat:"", diagnose: "", drug: ""}
+var patients = {patient_id: "",name: "", age: "", gender: "", address: "", job:"", reason_to_hos: "", symptom: "", status: "", oxygen:"", temperature: " ", 
+heart_beat:"", diagnose: "", drug: "", date_to_hos : ""}
 /* OCR engine */
 const tesseract = new TesseractEngine();
 
@@ -58,7 +58,9 @@ async function tesseractRecognize(url: string) {
     var heart_beat_tit = "Nhịp thở"
     var diagnose_tit = "Bệnh:"
     var drug_tit = "Thuốc"
+    var patient_id_tit = "ID bệnh nhân"
 
+    var patient_id = str.slice(str.indexOf(patient_id_tit) + patient_id_tit.length +1, str.indexOf(name_tit)).trim();
     var name = str.slice(str.indexOf(name_tit) + name_tit.length +1, str.indexOf(age_tit)).trim();
     var age =  str.slice(str.indexOf(age_tit) + age_tit.length +1, str.indexOf(gender_tit));
     var gender =  str.slice(str.indexOf(gender_tit) + gender_tit.length +1, str.indexOf(job_tit));
@@ -72,6 +74,7 @@ async function tesseractRecognize(url: string) {
     var diagnose = str.slice(str.indexOf(diagnose_tit)  + diagnose_tit.length +1, str.indexOf("5. Kê toa"));
     var drug = str.slice(str.indexOf(drug_tit) + drug_tit.length +1, str.indexOf("Liều lượng"));
 
+    patients.patient_id = patient_id;
     patients.name = name;
     patients.age = age;
     patients.gender = gender;
@@ -322,6 +325,9 @@ onMounted(async () => {
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" v-if="patients.name!='' ">
         <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
+               <th scope="col" class="px-6 py-3">
+                    Patient ID
+                </th>
                 <th scope="col" class="px-6 py-3">
                     Patient name
                 </th>
@@ -357,10 +363,14 @@ onMounted(async () => {
         </thead>
         <tbody>
             <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      <span v-if="!isEditable">   {{patients.name}} </span>
-                       <input class='w-[150px]' v-else v-model="patients.name" />
-                </th>
+                <td class="px-6 py-4" >
+                    <span v-if="!isEditable">   {{patients.patient_id}} </span>
+                    <input class='w-[150px]' v-else v-model="patients.patient_id" />
+                </td>
+                <td class="px-6 py-4" >
+                    <span v-if="!isEditable">   {{patients.name}} </span>
+                    <input class='w-[150px]' v-else v-model="patients.name" />
+                </td>
                 <td class="px-6 py-4" >
                     <span v-if="!isEditable"> {{patients.age}}  </span> 
                         <input class='w-[100px]' v-else v-model="patients.age" />
@@ -383,7 +393,7 @@ onMounted(async () => {
                         <input class='w-[200px]' v-else v-model="patients.symptom" />
                 </td>
                     <td class="px-6 py-4" >
-                      <span v-if='isMeasure'> Nhip tim :{{  heart_beat}} , Nong do o2: {{ir_value}}, temperature: {{temperature}} </span> 
+                      <span v-if='isMeasure'> Nhịp tim :{{  heart_beat}}  Nồng độ o2: {{ir_value}}%  Nhiệt độ: {{temperature}}°C</span> 
                 </td>
 
                 <td class="px-6 py-4" >
@@ -413,15 +423,25 @@ onMounted(async () => {
        Measure
         </button>
         </div> 
-<div id="toast-success"  v-if="isToast==true" class="flex items-center w-full float-right mr-[100px] max-w-xs p-4 mb-4 mt-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
-    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-        </svg>
-        <span class="sr-only">Check icon</span>
+
+
+<div  v-if="isToast==true" id="toast-interactive" class="w-full max-w-xs mt-[25px] p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400 ml-[500px]" role="alert">
+    <div class="flex">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-14 h-14 text-green-500 bg-green-100 rounded-lg dark:text-blue-300 dark:bg-blue-900">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+            </svg>
+            <span class="sr-only">Refresh icon</span>
+        </div>
+        <div class="ms-3 text-sm font-normal h-full">
+            <span class="mb-1 text-lg font-semibold text-gray-900 dark:text-white leading-8">Cập nhật thông tin bệnh nhân thành công !</span>
+            <div class="mb-2 text-lg font-normal" v-if="date_to_hos">Ngày vào viện trước đó của bệnh nhân : {{date_to_hos}}</div> 
+            <div class="mb-2 text-lg font-normal" v-else >Đây là lần đầu bệnh nhân đến tới bệnh viện.</div> 
+            <div class="grid grid-cols-2 gap-2">
+               
+            </div>    
+        </div>
     </div>
-    <div class="ms-3 text-sm font-normal">Save patient information successfully!</div>
-  
 </div>
 </template>
 
@@ -456,8 +476,8 @@ export default {
         ir_value : "" ,
         temperature: "" ,
         isMeasure: false,
-        isToast: false
-      
+        isToast: false,
+        date_to_hos :""
         }
     },
     mounted(){
@@ -465,15 +485,11 @@ export default {
         app.database()
             .ref('doan')
             .on('value', function(snapshot) {
-                // const id = snapshot.key;
-    
-                //----------OR----------//
-                self.heart_beat = snapshot.val().heart_beat || null;
-                 self.ir_value = snapshot.val().ir_value || null;
-                  self.temperature = snapshot.val().temperature || null;
-                // if (data) {
-                //   const id = Object.keys(data)[0];
-                // }
+
+            self.heart_beat = snapshot.val().heart_beat || null;
+            self.ir_value = snapshot.val().ir_value/1000 || null;
+            self.temperature = snapshot.val().temperature || null;
+
             });
     },
     methods: {
@@ -483,34 +499,47 @@ export default {
       // console.log(  this.isEditable);
     
     },
+    dateComponentPad(value) {
+        var format = String(value);
+        return format.length < 2 ? '0' + format : format;
+    },
+    formatDate(date) {
+        var datePart = [ date.getFullYear(), date.getMonth() + 1, date.getDate() ].map(this.dateComponentPad);
+        var timePart = [ date.getHours(), date.getMinutes(), date.getSeconds() ].map(this.dateComponentPad);
+        return datePart.join('-') + ' ' + timePart.join(':');
+    },
       saveEdit(patients) {
       // Toggle the editable state
       this.isEditable = !this.isEditable;
 
     },
-      saveData(patients) {
+    saveData(patients) {
       // Toggle the editable state
-      this.isToast =true
-      setTimeout(() => {
-          this.isToast =false
-      }, "2000")
-     patients.temperature = this.temperature; 
-     patients.oxygen = this.ir_value; 
-     patients.heart_beat = this.heart_beat; 
+      
 
-          axios.post('http://localhost:8080/ocr/ocr_detect', {patients
-                   }).then(response => [
 
-                   ])
-        
-    },
-          Measure(patients) {
+        let date = new Date();
+        patients.date_to_hos = this.formatDate(date);
+        patients.temperature = this.temperature; 
+        patients.oxygen = this.ir_value; 
+        patients.heart_beat = this.heart_beat; 
+        axios.post('http://localhost:8080/ocr/ocr_detect', {patients
+            }).then(response => [
+                this.date_to_hos = response.data.date_to_hos
+            ])  
+        this.isToast =true
+        setTimeout(() => {
+            this.isToast =false
+            this.date_to_hos=""
+        }, "5000")  
+        },
+    
+    Measure(patients) {
       // Toggle the editable state
-      console.log('jjj')
-      this.isMeasure = !this.isMeasure;
-      console.log(this.isMeasure)
-       app.database()
-            .ref('doan').set({isMeasure : this.isMeasure})
+        this.isMeasure = !this.isMeasure;
+        console.log(this.isMeasure)
+        app.database()
+        .ref('doan').set({isMeasure : this.isMeasure})
     
     }
   }

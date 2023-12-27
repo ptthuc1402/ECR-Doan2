@@ -89,6 +89,7 @@ export default {
 
         googleAuth() {
             window.open('http://localhost:8080/auth/google',"_self")
+            window.localtion.href = '/home'
         }
 
     }

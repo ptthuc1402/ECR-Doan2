@@ -93,7 +93,7 @@
                       {{patient.symptom}}
                 </td>
                  <td class="px-6 py-4">
-                      {{patient.temperature}}, {{ patient.blood_pressure }},  {{patient.pulse }}, {{patient.heart_beat}}
+                      {{patient.temperature}} {{ patient.blood_pressure }}  {{patient.pulse }} {{patient.heart_beat}}
                 </td>
                 <td class="px-6 py-4">
                       {{patient.diagnose}}
@@ -125,7 +125,7 @@
                       {{patient.symptom}}
                 </td>
                  <td class="px-6 py-4">
-                      {{patient.temperature}}, {{ patient.blood_pressure }},  {{patient.pulse }}, {{patient.heart_beat}}
+                      {{patient.temperature}} {{ patient.oxygen }}  {{patient.heart_beat}}
                 </td>
                 <td class="px-6 py-4">
                       {{patient.diagnose}}
