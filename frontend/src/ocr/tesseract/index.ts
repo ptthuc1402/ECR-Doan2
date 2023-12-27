@@ -10,7 +10,7 @@ class TesseractEngine extends Engine {
 
   async init(): Promise<void> {
     this.worker = await createWorker({
-      logger: (m) => console.log(m)
+      // logger: (m) => console.log(m)
     });
     /** You can load more languages in advance, but use only part of them in Worker.initialize() */
     await this.worker.loadLanguage('vie+chi_sim');

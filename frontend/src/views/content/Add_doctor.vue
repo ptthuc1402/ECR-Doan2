@@ -113,15 +113,9 @@ import axios from 'axios';
      submit(e) 
      {
         axios.post('http://localhost:8080/doctor/add_doctor',
-        {
-            name : this.doctor.name,
-            email: this.doctor.email,
-            birth: this.doctor.birth,
-            phone: this.doctor.phone,
-            address: this.doctor.address,
-            sex: this.doctor.sex,
-            spec: this.doctor.spec,
-        }).then(response => [    
+        
+          this.doctor
+        ).then(response => [    
         ])
         window.location.reload(); 
      }
