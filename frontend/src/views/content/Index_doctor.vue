@@ -13,24 +13,10 @@
                Doctor quantity :  {{doctors.length}}
             </p>
          </div>
-         <!-- <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-               </svg>
-            </p>
-         </div>
-         <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-               </svg>
-            </p>
-         </div> -->
       </div>
       </div>
     <table class="w-[1500px] text-base text-left rtl:text-right text-gray-500 dark:text-gray-400 ml-[300px] mt-[100px]" v-if="doctors.length!=0">
-        <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400  ">
+        <thead class="text-base text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-white  ">
             <tr>
                 <th scope="col" class="px-6 py-3 w-[100px] ">
                     Tên bác sĩ
@@ -58,25 +44,25 @@
         </thead>
         <tbody>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 w-[100px]"  v-for="(doctor, index) in doctors">
-                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-black" >
+                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white" >
                    {{doctor.name}}
                 </th>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                   {{doctor.email}}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                   {{doctor.sex}}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                   {{doctor.birth}}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                  {{doctor.phone}}
                 </td>
                 <td class="px-6 py-4">
                    {{doctor.address}}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                   {{doctor.spec}}
                 </td>
             </tr>
