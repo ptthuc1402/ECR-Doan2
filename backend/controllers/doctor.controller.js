@@ -3,10 +3,10 @@ const Doctor = require("../models/doctor.model");
 exports.store = async function (req, res) {
     try {
         const request = req.body; 
-        const doctor = await Doctor.findOne({ email : request.email }); 
-        console.log(doctor);
-        if(doctor){
-            const doctor_id = doctor._id;
+        console.log(request);
+        const oldDoctor = await Doctor.findOne({ email : request.email }); 
+        if(oldDoctor){
+            const doctor_id = oldDoctor._id;
             const doctor = await Doctor.findByIdAndUpdate(doctor_id, request);
             res.status(200);
         }

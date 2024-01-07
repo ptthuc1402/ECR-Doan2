@@ -44,25 +44,25 @@
         </thead>
         <tbody>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 w-[100px]"  v-for="(doctor, index) in doctors">
-                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white" >
+                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap " >
                    {{doctor.name}}
                 </th>
-                <td class="px-6 py-4 text-white">
+                <td class="px-6 py-4 ">
                   {{doctor.email}}
                 </td>
-                <td class="px-6 py-4 text-white">
+                <td class="px-6 py-4 ">
                   {{doctor.sex}}
                 </td>
-                <td class="px-6 py-4 text-white">
+                <td class="px-6 py-4 ">
                   {{doctor.birth}}
                 </td>
-                <td class="px-6 py-4 text-white">
+                <td class="px-6 py-4 ">
                  {{doctor.phone}}
                 </td>
                 <td class="px-6 py-4">
                    {{doctor.address}}
                 </td>
-                <td class="px-6 py-4 text-white">
+                <td class="px-6 py-4 ">
                   {{doctor.spec}}
                 </td>
             </tr>

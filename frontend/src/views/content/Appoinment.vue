@@ -26,7 +26,7 @@
 
                       <div class="md:col-span-3">
                         <label for="birthday">Ngày sinh</label>
-                        <input type="date" v-model="patient.birth" id="chosen-date-birth" name="chosen-date-birth" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"> 
+                        <input type="date" v-model="patient.birth" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"> 
                       </div>
 
                       <div class="md:col-span-2">

@@ -26,7 +26,7 @@
 
                       <div class="md:col-span-3">
                         <label for="birthday">Ngày sinh</label>
-                        <input type="date" v-model="doctor.birth" id="chosen-date-birth" name="chosen-date-birth" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"> 
+                       <input type="date" v-model="doctor.birth" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"> 
                       </div>
 
                       <div class="md:col-span-2">
@@ -112,12 +112,14 @@ import axios from 'axios';
   methods: {
      submit(e) 
      {
+        console.log(this.doctor);
         axios.post('http://localhost:8080/doctor/add_doctor',
         
           this.doctor
         ).then(response => [    
         ])
-        window.location.reload(); 
+        window.location.reload();
+        
      }
   }
 }

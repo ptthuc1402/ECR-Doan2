@@ -49,7 +49,7 @@
         </thead>
         <tbody>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 w-[100px]"  v-for="(appoinment, index) in appoinments">
-                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white" >
+                <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap" >
                    {{appoinment.name}}
                 </th>
                 <td class="px-6 py-4">
