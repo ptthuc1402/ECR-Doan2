@@ -60,6 +60,10 @@ const routes: Array<RouteRecordRaw> = [
       next();
     }
   },
+  {path: "/",
+  component:() => import('@/views/Home_patient.vue'),
+
+}
 ];
 
 const router = createRouter({

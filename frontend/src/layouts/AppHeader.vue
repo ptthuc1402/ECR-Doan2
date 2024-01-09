@@ -199,7 +199,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <div title="Profile" class="dropdown dropdown-end"  v-if="data">
+        <div title="Profile" class="dropdown dropdown-end" >
           <label tabindex="0" class="btn btn-ghost normal-case" data-svelte-h="svelte-16sc62l">
             Menu
             <svg

@@ -37,7 +37,8 @@ module.exports = app => {
             req.logout();
             res.redirect('/login');
     })
-        
+    
+    
     app.use('/auth', router);
 };
   
